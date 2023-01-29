@@ -1,0 +1,258 @@
+<!--Top Bar-->
+<mat-toolbar class="primaryBgColor" style="height:50px; padding-left: 3px">
+    <button class="btn btn-transparent" (click)="sidenav?.toggle()"><i class="fas fa-bars text-white"></i></button>
+    <h1 class="primaryTextColor pl-2">User Panel</h1>
+</mat-toolbar>
+
+<!--Sidenav-->
+<mat-sidenav-container class="sidenav-container" autosize>
+    <!--Side Navigation-->
+    <mat-sidenav #sidenav class="secondarBgColor" mode="over" opened="false">
+        <div class="row p-2">
+            <div class="col d-flex justify-content-center">
+                <img src="{{proPic}}" class="rounded" alt="Cinque Terre" width="180px">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <h4 class="secondaryTextColor">{{name}}</h4>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <a title="Profile edit" (click)="profileEditModal(EditModal)">
+                <i class="fas fa-user-cog theme-icon-secondary"></i>
+            </a>
+            <a title="Logout" (click)="SignOutModal(logoutModal)">
+                <i class="fas fa-sign-out-alt theme-icon-secondary"></i>
+            </a>
+        </div>
+        <mat-nav-list>
+            <mat-list-item class="sidenav-link" [routerLink]="[{ outlets: { user_dashboard_menu: ['dashboard'] } }]" (click)="sidenav.toggle()">
+                <i class="fa fa-home theme-icon-secondary" aria-hidden="true"></i>
+                <span class="secondaryTextColor"> Dashboard </span>
+            </mat-list-item>
+
+            <mat-list-item class="sidenav-link" [routerLink]="[{ outlets: { user_dashboard_menu: ['assignment_submission'] } }]" (click)="sidenav.toggle()">
+                <i class="fa fa-file theme-icon-secondary" aria-hidden="true"></i>
+                <span class="secondaryTextColor"> Assignment </span>
+            </mat-list-item>
+
+            <mat-list-item class="sidenav-link" [routerLink]="[{ outlets: { user_dashboard_menu: ['modules'] } }]" (click)="sidenav.toggle()">
+                <i class="fas fa-book theme-icon-secondary"></i>
+                <span class="secondaryTextColor">Module </span>
+            </mat-list-item>
+
+            <mat-list-item class="sidenav-link" [routerLink]="[{ outlets: { user_dashboard_menu: ['personal_files'] } }]" (click)="sidenav.toggle()">
+                <i class="fa fa-user theme-icon-secondary" aria-hidden="true"></i>
+                <span class="secondaryTextColor"> Personal </span>
+            </mat-list-item>
+
+            <mat-list-item class="sidenav-link" [routerLink]="[{ outlets: { user_dashboard_menu: ['relaxation'] } }]" (click)="sidenav.toggle()">
+                <i class="fas fa-bell theme-icon-secondary"></i>
+                <span class="secondaryTextColor">Relax </span>
+            </mat-list-item>
+
+        </mat-nav-list>
+    </mat-sidenav>
+    <!--Admin Body-->
+    <div class="example-sidenav-content">
+        <router-outlet name='user_dashboard_menu'></router-outlet>
+    </div>
+</mat-sidenav-container>
+
+
+<!--Footer-->
+<app-footer></app-footer>
+
+<!--Logout Modal-->
+<ng-template #logoutModal let-modal>
+    <div class="container">
+        <!--Header-->
+        <div class="modal-header">
+            <h1 class="secondaryTextColor"><b>Logout</b></h1>
+        </div>
+        <!--Info-->
+        <div class="modal-body justify-content-center">
+            <div class="row justify-content-center">
+                <h2 class="secondaryTextColor"><b>Are you sure want to Logout ?</b></h2>
+            </div>
+        </div>
+        <!-- Footer-->
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+            <button type="button" class="btn theme-btn" (click)="Signout()">Logout</button>
+        </div>
+    </div>
+</ng-template>
+
+<!--Profile Change Modal-->
+<ng-template #EditModal let-modal>
+    <div class="container">
+        <!--Profile Header-->
+        <div class="modal-header">
+            <h1 class="pt-2">{{profileHeader}}</h1>
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link" [class]="isProfile ? 'active bg-dark': 'text-dark' " style="cursor: pointer" (click)="Profile()" aria-current="page">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [class]="isPassword ? 'active bg-dark': 'text-dark' " style="cursor: pointer" (click)="Password()" aria-current="page">Password</a>
+                </li>
+            </ul>
+        </div>
+        <!--Profile Info-->
+        <div class="row">
+            <div class="container">
+                <div *ngIf="isProfile" class="modal-body justify-content-center">
+                    <div class="row d-flex justify-content-center">
+                        <div class=" col-lg-12">
+                            <form [formGroup]="profileEditForm">
+                                <div class="row box justify-content-center mb-5">
+                                    <div class="col-8 align-self-center">
+                                        <div>
+                                            <h5 class="text-center secondaryTextColor">Drop files here or click to upload.</h5>
+                                        </div>
+                                        <div class="fallback">
+                                            <div class="box" id="lab">
+                                                <input formControlName="image" id="file" type="file" class="text-center fileSelectButton" (change)="onFileChange($event)">
+                                                <label for="file">{{editImageSrc ? 'Change Image' : 'Choose Image'}}</label>
+                                            </div>
+                                            <div *ngIf="editImageSrc">
+                                                <button type="reset" class="close closeButton" (click)="imageCloseClick()">
+                          <span>&times;</span>
+                        </button>
+                                                <img class="imageBox rounded mx-auto d-block" [src]="editImageSrc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!--Name-->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <div class="row px-3">
+                                                <label class="mb-1"><h5 class="secondaryTextColor">Name</h5></label>
+                                                <input class="mb-4" type="text" placeholder="Enter a Name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.name.errors }">
+                                                <div *ngIf="submitted && profileFormControl.name.errors" class="invalid-feedback">
+                                                    <div *ngIf="profileFormControl.name.errors.required">Name is required</div>
+                                                    <div *ngIf="profileFormControl.name.errors.emptySpace">Name is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Gender -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <div class="row px-3">
+                                                <label class="mb-1"><h5 class="secondaryTextColor">Gender</h5></label>
+                                                <select class="mb-4 form-control" type="text" name="gender" placeholder="Select a gender" formControlName="gender" (change)="ChangeDropDownValue(gender, $event)" [ngClass]="{ 'is-invalid': submitted && profileFormControl.gender.errors }">
+                          <option value="" disabled>Choose your Gender</option>
+                          <option *ngFor="let gender of Gender" [ngValue]="gender" >{{gender}}</option>
+                        </select>
+                                                <div *ngIf="submitted && profileFormControl.gender.errors" class="invalid-feedback">
+                                                    <div *ngIf="profileFormControl.gender.errors.required">Gender is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Email -->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <div class="row px-3">
+                                                <label class="mb-1"><h5 class="secondaryTextColor"> Address</h5></label>
+                                                <input class="mb-4" type="text" name="address" placeholder="Enter a valid address" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.address.errors }">
+                                                <div *ngIf="submitted && profileFormControl.address.errors" class="invalid-feedback">
+                                                    <div *ngIf="profileFormControl.address.errors.required">Address is required</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Phone-->
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <div class="user-box">
+                                                <label class="primaryFont"><h5 class="secondaryTextColor">Contact Number</h5></label>
+                                                <input type="text" name="phone" class="primaryFont" placeholder="Enter Phone Number" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.phone.errors }">
+
+                                                <div *ngIf="submitted && profileFormControl.phone.errors" class="invalid-feedback text-danger">
+                                                    <div *ngIf="profileFormControl.phone.errors.required">Contact number is required</div>
+                                                    <div *ngIf="profileFormControl.phone.errors.mustMatchPattern">Contact number is Invalid</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Password Info-->
+                <div *ngIf="isPassword" class="modal-body justify-content-center">
+                    <div class="row d-flex justify-content-center">
+                        <div class=" col-lg-12">
+                            <form [formGroup]="passwordEditForm">
+                                <!-- Password -->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <div class="form-group">
+                                        <label class="mb-1"><h2 class="secondaryTextColor">New Password</h2></label>
+                                        <div class="input-group">
+                                            <input class="form-control" type="password" name="password" placeholder="Enter a password" formControlName="password" [type]="fieldTextType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submitted && passwordFormControl.password.errors }">
+                                            <div class="input-group-append inputGroupAppend">
+                                                <span class="input-group-text">
+                                  <i class="fa"
+                                     style="cursor: pointer"
+                                     [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+                                     (click)="toggleFieldTextType()"></i>
+                                </span>
+                                            </div>
+                                            <div *ngIf="submitted && passwordFormControl.password.errors" class="invalid-feedback">
+                                                <div *ngIf="passwordFormControl.password.errors.required">Password is required</div>
+                                                <div *ngIf="passwordFormControl.password.errors.minlength">Password must be at least 6 characters
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Confirm Password-->
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                                    <div class="form-group">
+                                        <label class="mb-1"><h2 class="secondaryTextColor">Confirm Password</h2></label>
+                                        <div class="input-group">
+                                            <input class="form-control" formControlName="confirmPassword" [type]="confirmPasswordType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submitted && passwordFormControl.confirmPassword.errors }" type="password" name="password" placeholder="Confirm Password">
+                                            <div class="input-group-append inputGroupAppend">
+                                                <span class="input-group-text">
+                          <i class="fa" style="cursor: pointer"
+                             [ngClass]="{'fa-eye-slash': !confirmPasswordType,'fa-eye': confirmPasswordType}"
+                             (click)="toggleConfirmPasswordType()"></i>
+                        </span>
+                                            </div>
+                                            <div *ngIf="submitted && passwordFormControl.confirmPassword.errors" class="invalid-feedback">
+                                                <div *ngIf="passwordFormControl.confirmPassword.errors.required">Confirm Password is required
+                                                </div>
+                                                <div *ngIf="passwordFormControl.confirmPassword.errors.mustMatch">Passwords must match</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Footer-->
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+            <button *ngIf="isProfile" type="submit" class="btn theme-btn" (click)="onProfileSubmit()">Update</button>
+            <button *ngIf="isPassword" type="submit" class="btn theme-btn" (click)="onPasswordSubmit()">Update</button>
+        </div>
+    </div>
+</ng-template>

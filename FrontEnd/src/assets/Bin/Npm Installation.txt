@@ -1,0 +1,17 @@
+1. Toast
+	*https://www.npmjs.com/package/ngx-toastr
+	*npm install ngx-toastr --save
+	*npm install @angular/animations --save
+
+2. Social Media
+	*https://www.npmjs.com/package/angularx-social-login
+	*npm i angularx-social-login
+
+3. Crypto js
+	*npm i --save-dev @types/crypto-js
+
+4. Install Boostrap 4
+	*npm install bootstrap --save
+
+5. Install Ng Bootsrap
+	*npm install --save @ng-bootstrap/ng-bootstrap

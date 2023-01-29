@@ -1,0 +1,205 @@
+<div class="container">
+    <h1 class="d-flex justify-content-center pt-2 primaryFont">Module & Batch Component</h1>
+
+    <!-- Module Start -->
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1 class="d-flex justify-content-center">New Module</h1>
+                </div>
+                <form [formGroup]="sampleForm">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label><h4 class="text-sm">Batch No</h4></label>
+                                <select class="mb-4 form-control" type="text" name="Batch" placeholder="Select a batch" formControlName="Batch" (change)="ChangeDropDownValue(batch, $event)" [ngClass]="{ 'is-invalid': submitted && formControl.Batch.errors }">
+                                        <option value="" disabled>Choose your Batch</option>
+                                        <option *ngFor="let batch of BatchResoruce" [ngValue]="batch">{{batch.batchNo}}</option>
+                                      </select>
+                                <div *ngIf="submitted && formControl.Batch.errors" class="invalid-feedback">
+                                    <div *ngIf="formControl.Batch.errors.required">Batch is required</div>
+                                    <div *ngIf="formControl.Batch.errors.emptySpace">Batch is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label><h4 class="text-sm">Module Code</h4></label>
+                                <input class="form-control" type="text" name="ModuleCode" placeholder="Enter a Module Code" formControlName="ModuleCode" [ngClass]="{ 'is-invalid': submitted && formControl.ModuleCode.errors }">
+                                <div *ngIf="submitted && formControl.ModuleCode.errors" class="invalid-feedback">
+                                    <div *ngIf="formControl.ModuleCode.errors.required">Module Code is required</div>
+                                    <div *ngIf="formControl.ModuleCode.errors.emptySpace">Module Code is required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label class="primaryFont"><h4 class="text-sm">Module Name</h4></label>
+                                <input class="form-control" type="text" name="ModuleName" placeholder="Enter a Module Name" formControlName="ModuleName" [ngClass]="{ 'is-invalid': submitted && formControl.ModuleName.errors }">
+                                <div *ngIf="submitted && formControl.ModuleName.errors" class="invalid-feedback text-danger">
+                                    <div *ngIf="formControl.ModuleName.errors.required">Module Name is required</div>
+                                    <div *ngIf="formControl.ModuleName.errors.mustMatchPattern">Module Name is Invalid</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 px-3">
+                        <button type="submit" class="btn theme-btn" (click)="onSubmit()">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="row mb-5">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+                    <div class="card2 card border-0 px-4 py-5 shadow">
+                        <div class="row mb-4 justify-content-center">
+                            <h1>Module Information</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Batch No</th>
+                                            <th scope="col">Module Code</th>
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let module of ModuleResoruce">
+                                            <th scope="row">{{module.batchNo}}</th>
+                                            <td>{{module.code}}</td>
+                                            <td>{{module.moduleName}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" style="margin-right: 4px;" (click)="DeleteModel(module.subjectId,deleteModel)"><i class="fas fa-trash-alt"  ></i></button>
+                                            </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1 class="d-flex justify-content-center">Add Batch</h1>
+                </div>
+                <form [formGroup]="batchForm">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label for="Batch">Batch No</label>
+                                <input class="form-control" formControlName="BatchNo" name="BatchNo" type="text" placeholder="Enter Batch No" [ngClass]="{ 'is-invalid': submittedd && formControlBatch.BatchNo.errors }">
+                                <div *ngIf="submittedd && formControlBatch.BatchNo.errors" class="invalid-feedback">
+                                    <div *ngIf="formControlBatch.BatchNo.errors.required">Batch is required</div>
+                                    <div *ngIf="formControlBatch.BatchNo.errors.emptySpace">Batch is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12 ">
+                            <div class="form-group">
+                                <label for="Batch">Start Date</label>
+                                <input class="form-control" type="date" formControlName="StartDate" name="StartDate" [ngClass]="{ 'is-invalid': submittedd && formControlBatch.StartDate.errors }">
+                                <div *ngIf="submittedd && formControlBatch.StartDate.errors" class="invalid-feedback">
+                                    <div *ngIf="formControlBatch.StartDate.errors.required">StartDate is required</div>
+                                    <div *ngIf="formControlBatch.StartDate.errors.emptySpace">StartDate is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12 ">
+                            <div class="form-group">
+                                <label for="Batch">End Date</label>
+                                <input class="form-control" type="date" formControlName="EndDate" name="EndDate" [ngClass]="{ 'is-invalid': submittedd && formControlBatch.EndDate.errors }">
+                                <div *ngIf="submittedd && formControlBatch.EndDate.errors" class="invalid-feedback">
+                                    <div *ngIf="formControlBatch.EndDate.errors.required">EndDate is required</div>
+                                    <div *ngIf="formControlBatch.EndDate.errors.emptySpace">EndDate is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row mb-3 px-3">
+                        <button type="submit" class="btn theme-btn" (click)="onSubmitforBatch() ">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+            <br>
+            <div class="row mb-5 ">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 ">
+                    <div class="card2 card border-0 px-4 py-5 shadow ">
+                        <div class="row mb-4 justify-content-center ">
+                            <h1>Batch Information</h1>
+                        </div>
+                        <div class="row ">
+                            <div class="col-12 ">
+                                <table class="table table-bordered ">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col ">Batch ID</th>
+                                            <th scope="col ">Start Date</th>
+                                            <th scope="col ">End Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let batch of BatchResoruce">
+                                            <th scope="row ">{{batch.batchNo}}</th>
+                                            <th scope="row ">{{batch.startDate}}</th>
+                                            <th scope="row ">{{batch.endDate}}</th>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+</div>
+
+
+<div class="row " style="padding-bottom: 150px; "></div>
+<ng-template #deleteModel let-modal>
+    <div class="app-modal-window ">
+        <div class="modal-body ">
+            <!-- Basic Validation -->
+            <div class="row clearfix ">
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <div class=" justify-content-center ">
+                        <h2 style="text-align: center ">Are you sure want to Delete this Module ?</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Validation -->
+        </div>
+        <div class="modal-footer d-flex justify-content-center text-light ">
+            <button type="button " class="btn theme-btn-cancel " (click)="CloseModel() ">Cancel</button>
+            <button type="button " class="btn theme-btn " (click)="DeleteModuleAPI(subjectId) ">Confirm</button>
+        </div>
+
+    </div>
+</ng-template>

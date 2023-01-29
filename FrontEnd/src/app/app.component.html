@@ -1,0 +1,16 @@
+<router-outlet></router-outlet>
+
+<!--Modal-->
+<ng-template #content let-modal>
+    <div class="app-modal-window">
+        <!--Body-->
+        <div class="modal-body">
+            <h3 class="secondaryTextColor text-center">Your session has been expired!</h3>
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer d-flex justify-content-center text-light">
+            <button type="button" class="btn btn-secondary" (click)="CloseExpiryModel()">OK</button>
+        </div>
+    </div>
+</ng-template>

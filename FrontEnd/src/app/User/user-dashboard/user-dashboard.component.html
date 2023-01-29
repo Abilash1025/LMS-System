@@ -1,0 +1,46 @@
+<div class="container" style="margin-bottom: 180px">
+    <div *ngFor="let quotes of Quotes">
+
+        <h1 class="h1 text-center" style="color:rgb(2, 6, 39);font-size: 30px;line-height: 1.4;margin-bottom: 0" id="pageHeaderTitle">{{quotes.quotes}}</h1>
+    </div>
+
+    <div class="clock">
+        <div class="analog-clock">
+            <div class="hour hand" [ngStyle]="hourHandStyle"></div>
+            <div class="minute hand" [ngStyle]="minuteHandStyle"></div>
+            <div class="second hand" [ngStyle]="secondHandStyle"></div>
+            <div class="center-circle"></div>
+        </div>
+        <div class="digital-clock">{{format(hour)}}:{{format(minute)}}:{{format(second)}}</div>
+    </div>
+    <br>
+    <br>
+    <div class="card2 card border-0 px-4 py-5 shadow" style="top:80%">
+        <div class="row mb-4 justify-content-center">
+            <h1><b>Give Feedback</b></h1>
+        </div>
+        <form [formGroup]="sampleForm">
+
+            <div class="row justify-content-center">
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="form-group">
+                        <label><h6 class="text-sm">Feedback</h6></label>
+                        <input class="form-control" type="text" name="Feedback" placeholder="Enter a  Feedback" formControlName="Feedback" [ngClass]="{ 'is-invalid': submitted && formControl.Feedback.errors }">
+                        <div *ngIf="submitted && formControl.Feedback.errors" class="invalid-feedback">
+                            <div *ngIf="formControl.Feedback.errors.required">Feedback is required</div>
+                            <div *ngIf="formControl.Feedback.errors.emptySpace">Feedback is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row  justify-content-center">
+                <button type="submit" class="btn theme-btn" (click)="onSubmit()">Submit</button>
+            </div>
+
+        </form>
+        <br>
+    </div>
+
+</div>

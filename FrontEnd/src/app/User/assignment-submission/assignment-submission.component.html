@@ -1,0 +1,137 @@
+<div class="container">
+    <h1 class="d-flex justify-content-center pt-2 primaryFont">Assignment Submission Component</h1>
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <h1 style="text-align: center;">New Assignments</h1>
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Brief</th>
+                                            <th scope="col">Module</th>
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Deadline</th>
+                                            <th scope="col">Link</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let assignmentResoruce of AssignmentResoruce">
+                                            <th scope="row"> <a href="{{assignmentResoruce.briefDoc}}" target="_blank">Assignment File</a></th>
+                                            <td>{{assignmentResoruce.module}}</td>
+                                            <td>{{assignmentResoruce.topic}}</td>
+                                            <td>{{assignmentResoruce.deadline}}</td>
+                                            <td>
+                                                <button class="btn btn-primary" (click)="OpenModel(assignmentResoruce.uploadType,assignmentResoruce.comment,assignmentResoruce.deadline,assignmentResoruce.assignmentId,myModal)">Submit</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br>
+            <br>
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <h1 style="text-align: center;">Submitted Assignments</h1>
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-dark">
+                                        <tr>
+
+                                            <th scope="col">Topic</th>
+                                            <th scope="col">Deadline</th>
+                                            <th scope="col">Submitted Date</th>
+                                            <th scope="col">Comment</th>
+                                            <th scope="col">Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let assignment of SubmittedAssignmentResoruce">
+
+                                            <td>{{assignment.topic}}</td>
+                                            <td>{{assignment.deadline}}</td>
+                                            <td>{{assignment.submittedTime}}</td>
+                                            <td>{{assignment.comment}}</td>
+                                            <td style="color: rgb(30, 31, 54);font-weight: bolder">{{assignment.marks}}</td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row" style="padding-bottom: 150px;"></div>
+
+<!--Modal-->
+<ng-template #myModal let-modal>
+    <div class="app-modal-window">
+        <!--Header-->
+        <div class="modal-header">
+            <h1 class="modal-title primaryTextColor" id="modal-basic-title">Title</h1>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+            <table class="table ">
+                <thead class="thead-dark">
+                    <tr>
+
+                        <th scope="col">Upload Type</th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Submission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{uploadtype}}</td>
+                        <td>{{comment}}</td>
+                        <td>{{deadline}}</td>
+                        <td>
+                            <div class="dropzone " method="post " enctype="multipart/form-data ">
+                                <div><i class="fas fa-arrow-alt-to-top "></i></div>
+                                <h5 class="text-center ">Upload the Assignment file</h5>
+                                <input class="" accept="application/pdf" style="cursor: pointer" id="Doc" type="file" (change)="onFileChange($event)" multiple />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <!-- <embed src="assets/images/aaa.pdf " width="100% " height="450px " /> -->
+        </div>
+
+        <!--Footer-->
+        <div class="modal-footer d-flex justify-content-center text-light ">
+            <button type="button " class="btn btn-success " (click)="SubmitAssigment(assignmentId)">Submit</button>
+        </div>
+    </div>
+</ng-template>

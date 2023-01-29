@@ -1,0 +1,230 @@
+/* Background Color */
+
+.primaryBgColor {
+    background: linear-gradient(to right top, #000000, #12030b, #1b0717, #1e0d22, #1d1230, #181332, #121534, #0b1635, #0d1229, #0c0d1e, #060613, #000001);
+}
+
+.secondarBgColor {
+    color: rgb(255, 255, 255);
+}
+
+
+/* Text Color */
+
+.primaryTextColor {
+    color: rgb(255, 255, 255);
+}
+
+.secondaryTextColor {
+    color: rgb(0, 0, 0);
+}
+
+
+/* Font Style */
+
+.primaryText {
+    font-family: Gill Sans Extrabold, sans-serif !important;
+}
+
+
+/* Body Section */
+
+body {
+    background-color: #d0d0ce;
+    min-height: 100vh;
+}
+
+
+/* Icons */
+
+.theme-icon-primary {
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.theme-icon-secondary {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.theme-icon-cancel {
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    padding: 10px;
+}
+
+
+/* Logo Margin */
+
+.theme-brand-wrapper {
+    margin-bottom: 19px;
+}
+
+.theme-brand-wrapper .logo {
+    height: 37px;
+}
+
+
+/* Cart */
+
+.theme-card {
+    border: 0;
+    border-radius: 27.5px;
+    box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
+    overflow: hidden;
+    margin: 90px;
+    padding: 10px
+}
+
+.theme-card-img {
+    border-radius: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.theme-card-body {
+    padding: 85px 60px 60px;
+}
+
+@media (max-width: 422px) {
+    .theme-card .theme-card-body {
+        padding: 35px 24px;
+    }
+}
+
+.theme-card-description {
+    font-size: 25px;
+    color: #000;
+    font-weight: normal;
+    margin-bottom: 23px;
+}
+
+
+/* Form */
+
+.theme-card form {
+    max-width: 326px;
+}
+
+.form-control {
+    border: 1px solid #d5dae2;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    min-height: 45px;
+    font-size: 13px;
+    line-height: 15;
+    font-weight: normal;
+    border-radius: 50px;
+}
+
+.form-control::placeholder {
+    color: #919aa3;
+}
+
+.inputGroupAppend {
+    height: 45px;
+}
+
+.input-group-text {
+    border-radius: 0 50px 50px 0;
+}
+
+.input-group.has-validation>.input-group-append:nth-last-child(n+3)>.btn,
+.input-group.has-validation>.input-group-append:nth-last-child(n+3)>.input-group-text,
+.input-group:not(.has-validation)>.input-group-append:not(:last-child)>.btn,
+.input-group:not(.has-validation)>.input-group-append:not(:last-child)>.input-group-text,
+.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle),
+.input-group>.input-group-append:last-child>.input-group-text:not(:last-child),
+.input-group>.input-group-prepend>.btn,
+.input-group>.input-group-prepend>.input-group-text {
+    border-radius: 0 50px 50px 0 !important;
+    border: red 1px solid;
+}
+
+
+/* Buttons */
+
+.theme-btn {
+    padding: 10px 15px 10px;
+    background-color: #000;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.theme-btn:hover {
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+}
+
+.theme-btn-cancel {
+    padding: 10px 15px 10px;
+    background-color: #f8f9fb;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 20px;
+    color: black;
+    margin-bottom: 24px;
+}
+
+.theme-btn-cancel:hover {
+    background-color: #ebeced;
+}
+
+.theme-btn-small {
+    padding: 5px 8px 5px;
+    background-color: #000;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 10px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.theme-btn-small:hover {
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+}
+
+
+/* Hyperlinks */
+
+.theme-link {
+    font-size: 14px;
+    color: #919aa3;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+
+/* Pagination */
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+
+.page-link {
+    color: #000;
+}
+
+.page-link:hover {
+    color: #000;
+    background-color: #c6c8ca;
+}
+
+
+/*Todo: Bind css theme by using single click*/

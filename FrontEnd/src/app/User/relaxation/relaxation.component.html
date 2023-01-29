@@ -1,0 +1,101 @@
+<div class="container" style="padding-bottom: 80px">
+    <div class="card2 card border-0 px-4 py-5 shadow">
+        <mat-toolbar style="background-color: white">
+            <span>Rock / Paper / Scissors</span>
+            <span> - Player {{ results.player }} / Computer {{ results.computer }}</span>
+        </mat-toolbar>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-4">
+                <mat-card>
+                    <i class="fa fa-circle fa-2xl  float-left" style="font-size: 400%;color: #292b2c"></i>
+                    <mat-card-header>
+                        <mat-card-title>Rock</mat-card-title>
+                        <mat-card-subtitle>Rock beats Scissors</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        <button mat-button (click)="play('rock')" class="btn btn-dark">Play with Rock</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-4">
+                <mat-card>
+                    <i class="fa fa-paper-plane fa-2xl primary float-left" style="font-size: 400%;color: #292b2c"></i>
+                    <mat-card-header>
+                        <mat-card-title>Paper</mat-card-title>
+                        <mat-card-subtitle>Paper beats Rock</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        <button mat-button (click)="play('paper')" class="btn btn-dark">Play with Paper</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-4">
+                <mat-card>
+                    <i class="fa fa-times fa-2xl primary  float-left" style="font-size: 400%;color: #292b2c"></i>
+                    <mat-card-header>
+                        <mat-card-title>Scissors</mat-card-title>
+                        <mat-card-subtitle>Scissors beats Paper</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-actions>
+                        <button mat-button (click)="play('scissors')" class="btn btn-dark">Play with Scissors</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+
+        </div>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Results</mat-card-title>
+                <mat-card-subtitle>Computer picked {{ computerResult }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <h1>{{ result }}</h1>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <br>
+    <div class="card2 card border-0 px-4 py-5 shadow">
+        <div class="row mb-4 justify-content-center">
+            <h1>Relaxtion Music</h1>
+        </div>
+        <table class="table " style="width: 50%;margin-left: auto;margin-right: auto;">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Music Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Awareness Meditation Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/20+min+Awareness+Meditation+Music+Relax+Mind+Body_+Chakra+Cleansing+and+Balancing+(128+kbps).mp3" target="_blank">Play</a></td>
+                </tr>
+                <tr>
+                    <td>Forest Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/forest-lullaby-110624.mp3" target="_blank">Play</a></td>
+                </tr>
+                <tr>
+                    <td>Inspiring Emotional Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/inspiring-emotional-uplifting-piano-112623.mp3" target="_blank">Play</a></td>
+                </tr>
+                <tr>
+                    <td>Lofi Study Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/lofi-study-112191.mp3" target="_blank">Play</a></td>
+                </tr>
+                <tr>
+                    <td>Lost In Space Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/madirfan-lost-in-space-demo-version-201-uplifting-mix-114850.mp3" target="_blank">Play</a></td>
+                </tr>
+                <tr>
+                    <td>Peace Music</td>
+                    <td><a style="font-weight: bold" href="https://learningsystem.s3.ap-south-1.amazonaws.com/music/order-99518.mp3" target="_blank">Play</a></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <br>
+    </div>
+</div>

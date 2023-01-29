@@ -1,0 +1,592 @@
+<div class="container">
+    <h1 class="d-flex justify-content-center pt-2 primaryFont">Management Component</h1>
+    <!--Modal Box Section-->
+    <div class="row mt-5 mb-5 ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+            <button class="btn btn-secondary" style="margin-right: 10%" (click)="CreateUserModal(createStudentModal)">Add Student</button>
+
+            <button class="btn btn-secondary" (click)="CreateUserModal(createUserModal)">Add Admin</button>
+        </div>
+    </div>
+
+    <!-- Lecturer Info -->
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1>Lecturer Information</h1>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-xl-10 col-lg-11 col-md-11 col-sm-11 col-xs-8 col-8 d-flex justify-content-center">
+                        <input type="text" placeholder="Search Here" name="search" class="form-control" [(ngModel)]="searchKeyWord">
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-4 col-4  justify-content-center">
+                        <button class="btn btn-secondary" type="button" (click)="Search()">Search</button>
+                    </div> -->
+                    <table class="table">
+                        <thead class="table-dark primaryBgColor">
+                            <tr>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let lecturer of Lecturer">
+
+                                <td>{{lecturer.fullName}}</td>
+                                <td>{{lecturer.email}}</td>
+                                <td>{{lecturer.telephoneNumber}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" style="margin-right: 4px;" (click)="OpenModel(lecturer.fullName,lecturer.email,lecturer.gender,lecturer.address,lecturer.password,lecturer.telephoneNumber,AdminDetailsModel)"><i class="far fa-eye" ></i></button>
+                                    <button type="button" class="btn btn-danger" style="margin-right: 4px;" (click)="DeleteModelAdmin(lecturer.adminId,deleteAdminMOdel)"><i class="far fa-trash-alt" ></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- User Info -->
+    <div class="row mb-5" style="padding-bottom: 150px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1>User Information</h1>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-xl-10 col-lg-11 col-md-11 col-sm-11 col-xs-8 col-8 d-flex justify-content-center">
+                        <input type="text" placeholder="Search Here" name="search" class="form-control" [(ngModel)]="searchKeyWord">
+                    </div>
+                    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-xs-4 col-4 justify-content-center">
+                        <button class="btn btn-secondary" type="button" (click)="Search()">Search</button>
+                    </div> -->
+                    <table class="table">
+                        <thead class="table-dark primaryBgColor">
+                            <tr>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Mobile No</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of User">
+                                <td>{{user.fullName}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.telephoneNumber}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" style="margin-right: 4px;" (click)="OpenModelForUser(user.fullName,user.email,user.gender,user.address,user.password,user.telephoneNumber,user.batch,UserDetailsModel)"><i class="far fa-eye" ></i></button>
+                                    <button type="button" class="btn btn-danger" style="margin-right: 4px;" (click)="DeleteModelUser(user.userId,deleteUserMOdel)"><i class="far fa-trash-alt" ></i></button>
+                                </td>
+                                <tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--User Create Modal-->
+<ng-template #createStudentModal let-modal>
+    <div class="container">
+        <!--Header-->
+        <div class="modal-header">
+            <h2 class="modal-title">Add Student</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body justify-content-center">
+            <div class="row justify-content-center">
+                <form [formGroup]="profileCreateForm">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Batch</h5></label>
+                                    <select class="mb-4 form-control" type="text" name="Batch" placeholder="Select a Batch" formControlName="Batch" (change)="ChangeDropDownValue(batch, $event)" [ngClass]="{ 'is-invalid': submitted && profileFormControl.Batch.errors }">
+                              <option value="" disabled>Choose your Batch</option>
+                              <option *ngFor="let batch of ComboBoxResoruceBatch" [ngValue]="batch">{{batch.batchNo}}</option>
+                            </select>
+                                    <div *ngIf="submitted && profileFormControl.Batch.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.Batch.errors.required">Batch is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-8 align-self-center">
+                            <div>
+                                <h5 class="text-center secondaryTextColor">Drop files here or click to upload.</h5>
+                            </div>
+                            <div class="fallback">
+                                <div class="box" id="lab">
+                                    <input formControlName="image" id="file1" type="file" class="text-center fileSelectButton" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && profileFormControl.image.errors }">
+                                    <label for="file1">{{editImageSrc ? 'Change Image' : 'Choose Image'}}</label>
+                                    <div *ngIf="submitted && profileFormControl.image.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.image.errors.required">File is required</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="editImageSrc">
+                                    <button type="reset" class="close closeButton" (click)="imageCloseClick()">
+                          <span>&times;</span>
+                        </button>
+                                    <img class="imageBox rounded mx-auto d-block" [src]="editImageSrc">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Name-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Name</h5></label>
+                                    <input class="mb-4" type="text" name="name" placeholder="Enter a Name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.name.errors }">
+                                    <div *ngIf="submitted && profileFormControl.name.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.name.errors.required">Name is required</div>
+                                        <div *ngIf="profileFormControl.name.errors.emptySpace">Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Gender -->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Gender</h5></label>
+                                    <select class="mb-4 form-control" type="text" name="gender" placeholder="Select a gender" formControlName="gender" (change)="ChangeDropDownValue(gender, $event)" [ngClass]="{ 'is-invalid': submitted && profileFormControl.gender.errors }">
+                      <option value="" disabled>Choose your Gender</option>
+                      <option *ngFor="let gender of Gender; let i=index" [ngValue]="gender">{{gender}}</option>
+                    </select>
+                                    <div *ngIf="submitted && profileFormControl.gender.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.gender.errors.required">Gender is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Email-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Email Address</h5></label>
+                                    <input class="mb-4" type="text" name="email" placeholder="Enter a valid email address" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.email.errors }">
+                                    <div *ngIf="submitted && profileFormControl.email.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.email.errors.required">Email is required</div>
+                                        <div *ngIf="profileFormControl.email.errors.email">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- phone -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <div class="user-box">
+                                    <label class="primaryFont"><h5 class="secondaryTextColor">Contact Number</h5></label>
+                                    <input type="text" name="phone" class="primaryFont" placeholder="Enter Phone Number" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.phone.errors }">
+
+                                    <div *ngIf="submitted && profileFormControl.phone.errors" class="invalid-feedback text-danger">
+                                        <div *ngIf="profileFormControl.phone.errors.required">Contact number is required</div>
+                                        <div *ngIf="profileFormControl.phone.errors.mustMatchPattern">Contact number is Invalid</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <div class="user-box">
+                                    <label class="primaryFont"><h5 class="secondaryTextColor">Address</h5></label>
+                                    <input type="text" name="address" class="primaryFont" placeholder="Enter Address" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submitted && profileFormControl.address.errors }">
+
+                                    <div *ngIf="submitted && profileFormControl.address.errors" class="invalid-feedback text-danger">
+                                        <div *ngIf="profileFormControl.address.errors.required">Address is required</div>
+                                        <div *ngIf="profileFormControl.address.errors.mustMatchPattern">Address is Invalid</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Password -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label class="mb-1"><h5 class="secondaryTextColor">New Password</h5></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="password" name="password" placeholder="Enter a password" formControlName="password" [type]="fieldTextType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submitted && profileFormControl.password.errors }">
+                                    <div class="input-group-append inputGroupAppend">
+                                        <span class="input-group-text">
+                                    <i class="fa"
+                                       style="cursor: pointer"
+                                       [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+                                       (click)="toggleFieldTextType()"></i>
+                                  </span>
+                                    </div>
+                                    <div *ngIf="submitted && profileFormControl.password.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.password.errors.required">Password is required</div>
+                                        <div *ngIf="profileFormControl.password.errors.minlength">Password must be at least 6 characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label class="mb-1"><h5 class="secondaryTextColor">Confirm Password</h5></label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="confirmPassword" [type]="confirmPasswordType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submitted && profileFormControl.confirmPassword.errors }" type="password" name="password" placeholder="Confirm Password">
+                                    <div class="input-group-append inputGroupAppend">
+                                        <span class="input-group-text">
+                            <i class="fa" style="cursor: pointer"
+                               [ngClass]="{'fa-eye-slash': !confirmPasswordType,'fa-eye': confirmPasswordType}"
+                               (click)="toggleConfirmPasswordType()"></i>
+                          </span>
+                                    </div>
+                                    <div *ngIf="submitted && profileFormControl.confirmPassword.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.confirmPassword.errors.required">Confirm Password is required
+                                        </div>
+                                        <div *ngIf="profileFormControl.confirmPassword.errors.mustMatch">Passwords must match</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--Footer-->
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+            <button type="submit" class="btn theme-btn" (click)="CreateUser()">Create</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #createUserModal let-modal>
+    <div class="container">
+        <!--Header-->
+        <div class="modal-header">
+            <h2 class="modal-title">Add Admin</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body justify-content-center">
+            <div class="row justify-content-center">
+                <form [formGroup]="profileCreateForm">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-8 align-self-center">
+                            <div>
+                                <h5 class="text-center secondaryTextColor">Drop files here or click to upload.</h5>
+                            </div>
+                            <div class="fallback">
+                                <div class="box" id="lab">
+                                    <input formControlName="image" id="file1" type="file" class="text-center fileSelectButton" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.image.errors }">
+                                    <label for="file1">{{editImageSrc ? 'Change Image' : 'Choose Image'}}</label>
+                                    <div *ngIf="submittedd && profileFormControl.image.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.image.errors.required">File is required</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="editImageSrc">
+                                    <button type="reset" class="close closeButton" (click)="imageCloseClick()">
+                  <span>&times;</span>
+                </button>
+                                    <img class="imageBox rounded mx-auto d-block" [src]="editImageSrc">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Name-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Name</h5></label>
+                                    <input class="mb-4" type="text" name="name" placeholder="Enter a Name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.name.errors }">
+                                    <div *ngIf="submittedd && profileFormControl.name.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.name.errors.required">Name is required</div>
+                                        <div *ngIf="profileFormControl.name.errors.emptySpace">Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Gender -->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Gender</h5></label>
+                                    <select class="mb-4 form-control" type="text" name="gender" placeholder="Select a gender" formControlName="gender" (change)="ChangeDropDownValue(gender, $event)" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.gender.errors }">
+                  <option value="" disabled>Choose your Gender</option>
+                  <option *ngFor="let gender of Gender; let i=index" [ngValue]="gender">{{gender}}</option>
+                </select>
+                                    <div *ngIf="submittedd && profileFormControl.gender.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.gender.errors.required">Gender is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Email-->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                            <div class="form-group">
+                                <div class="row px-3">
+                                    <label class="mb-1"><h5 class="secondaryTextColor">Email Address</h5></label>
+                                    <input class="mb-4" type="text" name="email" placeholder="Enter a valid email address" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.email.errors }">
+                                    <div *ngIf="submittedd && profileFormControl.email.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.email.errors.required">Email is required</div>
+                                        <div *ngIf="profileFormControl.email.errors.email">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- phone -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <div class="user-box">
+                                    <label class="primaryFont"><h5 class="secondaryTextColor">Contact Number</h5></label>
+                                    <input type="text" name="phone" class="primaryFont" placeholder="Enter Phone Number" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.phone.errors }">
+
+                                    <div *ngIf="submittedd && profileFormControl.phone.errors" class="invalid-feedback text-danger">
+                                        <div *ngIf="profileFormControl.phone.errors.required">Contact number is required</div>
+                                        <div *ngIf="profileFormControl.phone.errors.mustMatchPattern">Contact number is Invalid</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <div class="user-box">
+                                    <label class="primaryFont"><h5 class="secondaryTextColor">Address</h5></label>
+                                    <input type="text" name="address" class="primaryFont" placeholder="Enter Address" formControlName="address" class="form-control" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.address.errors }">
+
+                                    <div *ngIf="submittedd && profileFormControl.address.errors" class="invalid-feedback text-danger">
+                                        <div *ngIf="profileFormControl.address.errors.required">Address is required</div>
+                                        <div *ngIf="profileFormControl.address.errors.mustMatchPattern">Address is Invalid</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Password -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label class="mb-1"><h5 class="secondaryTextColor">New Password</h5></label>
+                                <div class="input-group">
+                                    <input class="form-control" type="password" name="password" placeholder="Enter a password" formControlName="password" [type]="fieldTextType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.password.errors }">
+                                    <div class="input-group-append inputGroupAppend">
+                                        <span class="input-group-text">
+                                <i class="fa"
+                                   style="cursor: pointer"
+                                   [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+                                   (click)="toggleFieldTextType()"></i>
+                              </span>
+                                    </div>
+                                    <div *ngIf="submittedd && profileFormControl.password.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.password.errors.required">Password is required</div>
+                                        <div *ngIf="profileFormControl.password.errors.minlength">Password must be at least 6 characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password-->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                            <div class="form-group">
+                                <label class="mb-1"><h5 class="secondaryTextColor">Confirm Password</h5></label>
+                                <div class="input-group">
+                                    <input class="form-control" formControlName="confirmPassword" [type]="confirmPasswordType ? 'text' : 'password'" [ngClass]="{ 'is-invalid': submittedd && profileFormControl.confirmPassword.errors }" type="password" name="password" placeholder="Confirm Password">
+                                    <div class="input-group-append inputGroupAppend">
+                                        <span class="input-group-text">
+                        <i class="fa" style="cursor: pointer"
+                           [ngClass]="{'fa-eye-slash': !confirmPasswordType,'fa-eye': confirmPasswordType}"
+                           (click)="toggleConfirmPasswordType()"></i>
+                      </span>
+                                    </div>
+                                    <div *ngIf="submittedd && profileFormControl.confirmPassword.errors" class="invalid-feedback">
+                                        <div *ngIf="profileFormControl.confirmPassword.errors.required">Confirm Password is required
+                                        </div>
+                                        <div *ngIf="profileFormControl.confirmPassword.errors.mustMatch">Passwords must match</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--Footer-->
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+            <button type="submit" class="btn theme-btn" (click)="CreateAdmin()">Create</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Delete Modal -->
+<ng-template #deleteAdminMOdel let-modal>
+    <!--Header-->
+    <div class="modal-header">
+        <h2 class="modal-title">Delete Admin</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">×</span>
+  </button>
+    </div>
+    <!--Body-->
+    <div class="modal-body justify-content-center">
+        <div class="row justify-content-center">
+            <h4>Are you sure want to Delete Admin?</h4>
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+        <button type="button" class="btn theme-btn" (click)="DeleteAdminAPI(adminId)">Confirm</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteUserMOdel let-modal>
+    <!--Header-->
+    <div class="modal-header">
+        <h2 class="modal-title">Delete Admin</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">×</span>
+  </button>
+    </div>
+    <!--Body-->
+    <div class="modal-body justify-content-center">
+        <div class="row justify-content-center">
+            <h4>Are you sure want to Delete User?</h4>
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Cancel</button>
+        <button type="button" class="btn theme-btn" (click)="DeleteUserAPI(userId)">Confirm</button>
+    </div>
+</ng-template>
+
+<ng-template #AdminDetailsModel let-modal>
+    <!--Header-->
+    <div class="modal-header">
+        <h2 class="modal-title">Admin Details</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">×</span>
+  </button>
+    </div>
+    <!--Body-->
+    <div class="modal-body justify-content-center">
+        <div class="row justify-content-center">
+            <table class="table" style="border:none">
+
+                <tbody>
+                    <tr>
+                        <td>FullName</td>
+                        <td><b>{{fullName}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Telephone Number</td>
+                        <td><b>{{telephoneNumber}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><b>{{email}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td><b>{{genderr}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><b>{{address}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><b>{{password}}</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #UserDetailsModel let-modal>
+    <!--Header-->
+    <div class="modal-header">
+        <h2 class="modal-title">Student Details</h2>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <!--Body-->
+    <div class="modal-body justify-content-center">
+        <div class="row justify-content-center">
+            <table class="table" style="border:none">
+                <tbody>
+
+                    <tr>
+                        <td>Batch</td>
+                        <td><b>{{batchforUser}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>FullName</td>
+                        <td><b>{{fullName}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Telephone Number</td>
+                        <td><b>{{telephoneNumber}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><b>{{email}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td><b>{{genderr}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td><b>{{address}}</b></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><b>{{password}}</b></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn theme-btn-cancel" (click)="modal.close('Cross click')">Close</button>
+    </div>
+</ng-template>

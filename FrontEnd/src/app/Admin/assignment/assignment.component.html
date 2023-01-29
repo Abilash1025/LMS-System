@@ -1,0 +1,161 @@
+<div class="container">
+    <h1 class="d-flex justify-content-center pt-2 primaryFont">Assignment Component</h1>
+
+    <br>
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1>Submitted Assignment Information</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Batch</th>
+                                    <th scope="col">Module</th>
+                                    <th scope="col">Topic</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">Mark</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let assignmentResoruce of AssignmentResoruce">
+                                    <th scope="row">{{assignmentResoruce.batch}}</th>
+                                    <td>{{assignmentResoruce.module}}</td>
+                                    <td>{{assignmentResoruce.topic}}</td>
+                                    <td> {{assignmentResoruce.deadline}} </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success" style="margin-right: 4px;" (click)="OpenModel(assignmentResoruce.assigmentFileId,myModal)"><i class="fas fa-edit"  ></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1>Graded Assignment Information</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Batch</th>
+                                    <th scope="col">Module</th>
+                                    <th scope="col">Topic</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let assignmentResoruce of AssignmentResoruce">
+                                    <th scope="row">{{assignmentResoruce.batch}}</th>
+                                    <td>{{assignmentResoruce.module}}</td>
+                                    <td>{{assignmentResoruce.topic}}</td>
+                                    <td> {{assignmentResoruce.deadline}} </td>
+                                    <td>
+                                        <button type="button" class="btn btn-success" style="margin-right: 4px;" (click)="OpenModelGraded(assignmentResoruce.assigmentFileId,editModal)"><i class="fas fa-edit"  ></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<!--Modal-->
+<ng-template #myModal let-modal>
+    <div class="app-modal-window">
+        <!--Header-->
+        <div class="modal-header">
+            <h1 class="modal-title primaryTextColor" id="modal-basic-title">Title</h1>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click');ResetForm()">
+                  <span aria-hidden="true">×</span>
+                </button>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+
+            <div class="justify-content-center">
+                <div class="course" *ngFor="let submittedResource of SubmittedAssignments">
+                    <div class="course-preview">
+                        <h2>{{submittedResource.topic}}</h2>
+                        <h6>{{submittedResource.submittedTime}}</h6>
+                    </div>
+                    <div class="course-info">
+                        <form [formGroup]="assignment">
+                            <div class="form-group">
+                                <a class="btnn" href="{{submittedResource.submittedDoc}}" target="_blank" style="text-decoration: none;">View</a>
+                                <h2>{{submittedResource.batch}}</h2>
+                                <h2>{{submittedResource.studentName}}</h2>
+
+                                <input class="form-control" formControlName="Grade" type="text" name=“someInput” placeholder="Enter Grade">
+                                <input class="form-control" formControlName="Comment" type="text" placeholder="Enter Comment">
+                                <button class="btn theme-btn" (click)="SubmitAssigment(submittedResource.assignmentId)">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editModal let-modal>
+    <div class="app-modal-window">
+        <!--Header-->
+        <div class="modal-header">
+            <h1 class="modal-title primaryTextColor" id="modal-basic-title">Title</h1>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click');ResetForm()">
+                  <span aria-hidden="true">×</span>
+                </button>
+        </div>
+
+        <!--Body-->
+        <div class="modal-body">
+
+            <div class="justify-content-center">
+                <div class="course" *ngFor="let submittedResource of SubmittedAssignments">
+                    <div class="course-preview">
+                        <h2>{{submittedResource.studentName}}</h2>
+                        <h6>{{submittedResource.batch}}</h6>
+                    </div>
+                    <div class="course-info">
+                        <form [formGroup]="assignment">
+                            <div class="form-group">
+                                <a class="btnn" href="{{submittedResource.submittedDoc}}" target="_blank" style="text-decoration: none;">View</a>
+                                <h2>{{submittedResource.comment}}</h2>
+                                <h2>{{submittedResource.marks}}</h2>
+
+                                <input class="form-control" formControlName="Grade" type="text" name=“someInput” placeholder="Enter Grade">
+                                <input class="form-control" formControlName="Comment" type="text" placeholder="Enter Comment">
+                                <button class="btn theme-btn" (click)="SubmitAssigment(submittedResource.assignmentId)">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</ng-template>

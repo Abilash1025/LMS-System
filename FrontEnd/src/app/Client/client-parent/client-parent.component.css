@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900|Open Sans:400,600,800');
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+input,
+p,
+a {
+    font-family: "Open Sans";
+    margin: 0px;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+}
+
+.card-container {
+    padding: 100px 0px;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+
+.profile-card-2 {
+    max-width: 300px;
+    background-color: #FFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.profile-card-2 img {
+    height: 400px;
+    width: 300px;
+    object-fit: cover;
+    margin: 10px auto;
+    transition: all linear 0.25s;
+    filter: opacity(80%);
+}
+
+.profile-card-2 .profile-name {
+    position: absolute;
+    left: 30px;
+    bottom: 70px;
+    font-size: 30px;
+    color: #FFF;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-icons {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    color: #FFF;
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-username {
+    position: absolute;
+    bottom: 50px;
+    left: 30px;
+    color: #FFF;
+    font-size: 13px;
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-icons .fa {
+    margin: 5px;
+}
+
+.profile-card-2:hover img {
+    filter: opacity(300%);
+}
+
+.profile-card-2:hover .profile-name {
+    bottom: 80px;
+}
+
+.profile-card-2:hover .profile-username {
+    bottom: 60px;
+}
+
+.profile-card-2:hover .profile-icons {
+    right: 40px;
+}
+
+.example-container {
+    position: fixed;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    min-width: 100%;
+}
+
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.menu-button {
+    transition: 300ms ease-in-out;
+    transform: rotate(0deg);
+}
+
+.menu-button.rotated {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    overflow-y: hidden;
+    transition: transform 300ms ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    padding-left: 30px;
+}
+
+.submenu.expanded {
+    transform: scaleY(1);
+}
+
+.bar {
+    visibility: hidden;
+}
+
+
+/* Mobile view */
+
+@media only screen and (max-width: 600px) {
+    .bar {
+        visibility: visible;
+    }
+}

@@ -1,0 +1,25 @@
+<!-- ======= Header Section ======= -->
+<div *ngFor="let banner of Banner">
+    <section id="home" class="d-flex flex-column justify-content-center" style="background: url({{banner.image}}) center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-12">
+
+                    <h2 class="title">
+                        <span class="title-word title-word-1">Learning</span>
+                        <span class="title-word title-word-2"> Management</span>
+                        <span class="title-word title-word-3"> System</span>
+                    </h2>
+                    <h2 class="titlesm">
+                        <span class="title-word title-word-1">To make</span>
+                        <span class="title-word title-word-2"> the future</span>
+                        <span class="title-word title-word-3"> bright</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- End Header -->
+
+<app-navigation (hrefID)="getNavEmit($event)"></app-navigation>

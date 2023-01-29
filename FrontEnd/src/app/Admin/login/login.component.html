@@ -1,0 +1,45 @@
+<body class="primaryText" style="margin-top: 0px">
+    <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+        <div class="container">
+            <div class="card theme-card">
+                <div class=" row no-gutters">
+                    <div class="col-md-5">
+                        <img src="assets/images/2.jpg" alt="login" class="theme-card-img">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="theme-card-body">
+                            <div class="theme-brand-wrapper">
+                                <img src="assets/images/logo.png" style="width:30%;height: 30%;" alt="logo" class="logo">
+                            </div>
+                            <p class="theme-card-description">Sign into your account</p>
+                            <form [formGroup]="loginForm" style="max-width: 500px;">
+                                <div class="form-group">
+                                    <label class="">Email</label>
+                                    <input type="email" name="email" autocomplete="off" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl.email.errors }">
+
+                                    <div *ngIf="submitted && formControl.email.errors" class="invalid-feedback text-danger" style="margin-top: -20px;">
+                                        <div *ngIf="formControl.email.errors.required">Email is required</div>
+                                        <div *ngIf="formControl.email.errors.email">Must be a valid email address</div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="">Password</label>
+                                    <input type="password" name="password" autocomplete="off" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl.password.errors }">
+                                    <div *ngIf="submitted && formControl.password.errors" class="invalid-feedback text-danger" style="margin-top: -20px;">
+                                        <div *ngIf="formControl.password.errors.required">Password is required</div>
+                                    </div>
+                                </div>
+                                <div *ngIf="errorStatus" class="invalid-feedback text-danger" style="margin-top: -20px;">
+                                    {{errorMessage}}
+                                </div>
+                                <input name="login" id="login" class="btn btn-block theme-btn mb-4" type="button" value="Login" (click)="OnSubmit()">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<app-footer></app-footer>

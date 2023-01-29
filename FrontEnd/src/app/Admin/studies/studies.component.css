@@ -1,0 +1,83 @@
+.card0 {
+    box-shadow: 0px 4px 8px 0px #757575;
+    border-radius: 0px
+}
+
+.box {
+    box-shadow: 0px 4px 8px 0px #757575;
+    border: 1px solid #f2f2f2;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px
+}
+
+.card2 {
+    margin: 0px 40px;
+    background-color: rgba(248, 248, 248, 0.993);
+}
+
+.border-line {
+    border-right: 1px solid #EEEEEE
+}
+
+.line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px
+}
+
+.or {
+    width: 10%;
+    font-weight: bold
+}
+
+.text-sm {
+    font-size: 14px !important
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0 0;
+    box-sizing: border-box;
+}
+
+.imageBox {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.previousBtn {
+    border-radius: 50px 0px 0px 50px !important;
+}
+
+.nextBtn {
+    border-radius: 0 50px 50px 0 !important;
+}
+
+@media screen and (max-width: 991px) {
+    .border-line {
+        border-right: none
+    }
+    .card2 {
+        border-top: 1px solid #EEEEEE !important;
+        margin: 0px 15px
+    }
+}
+
+@keyframes aaa {
+    50% {
+        left: 10%;
+        top: 90%;
+    }
+    50% {
+        left: 10%;
+        top: -30%;
+    }
+    100% {
+        left: -10%;
+        top: -10%;
+    }
+}

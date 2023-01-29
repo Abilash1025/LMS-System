@@ -1,0 +1,128 @@
+<div class="container" style="margin-bottom: 150px">
+    <h1 class="d-flex justify-content-center pt-2 primaryFont">Personal Component</h1>
+    <br>
+    <div class="card2 card border-0 px-4 py-5 shadow">
+        <div class="row mb-4 justify-content-center">
+            <h1>Add Personal Resources</h1>
+        </div>
+        <form [formGroup]="sampleForm">
+            <!--Image-->
+            <div class="row mb-5 box justify-content-center">
+                <div class="col-6 align-self-center">
+                    <div class="form-group" id="frmFileUpload" class="dropzone" method="post" enctype="multipart/form-data">
+                        <div><i class="fas fa-arrow-alt-to-top"></i></div>
+                        <h5 class="text-center">Upload the your resources file</h5>
+
+                        <input class="" formControlName="Doc" accept="application/pdf" style="cursor: pointer" id="Doc" type="file" (change)="onFileChange($event)" multiple [ngClass]="{ 'is-invalid': submitted && formControl.Doc.errors }" />
+                        <div *ngIf="submitted && formControl.Doc.errors" class="invalid-feedback">
+                            <div *ngIf="formControl.Doc.errors.required">File is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="form-group">
+                        <label><h6 class="text-sm">Topic</h6></label>
+                        <input class="form-control" type="text" name="Topic" placeholder="Enter a  Topic" formControlName="Topic" [ngClass]="{ 'is-invalid': submitted && formControl.Topic.errors }">
+                        <div *ngIf="submitted && formControl.Topic.errors" class="invalid-feedback">
+                            <div *ngIf="formControl.Topic.errors.required">Topic is required</div>
+                            <div *ngIf="formControl.Topic.errors.emptySpace">Topic is required</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="form-group">
+                        <label><h6 class="text-sm">Description</h6></label>
+                        <input class="form-control" type="text" name="Description" placeholder="Enter a  Description" formControlName="Description" [ngClass]="{ 'is-invalid': submitted && formControl.Description.errors }">
+                        <div *ngIf="submitted && formControl.Description.errors" class="invalid-feedback">
+                            <div *ngIf="formControl.Description.errors.required">Description is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+
+
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="form-group">
+                        <label><h6 class="text-sm">Type</h6></label>
+                        <input class="form-control" type="text" name="Type" placeholder="Enter a  Type" formControlName="Type" [ngClass]="{ 'is-invalid': submitted && formControl.Type.errors }">
+                        <div class="invalid-feedback" *ngIf="submitted && formControl.Type.errors">
+                            <div *ngIf="formControl.Type.errors.required">Type is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 px-3">
+                <button type="submit" class="btn theme-btn" (click)="onSubmit()">Submit</button>
+            </div>
+        </form>
+        <br>
+    </div>
+
+    <br>
+    <div class="row mb-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12">
+            <div class="card2 card border-0 px-4 py-5 shadow">
+                <div class="row mb-4 justify-content-center">
+                    <h1>Personal Resources Information</h1>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Topic</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let personalResoruce of PersonalResoruce">
+                                    <th scope="row">{{personalResoruce.topic}}</th>
+                                    <td>{{personalResoruce.description}}</td>
+                                    <td> {{personalResoruce.type}} </td>
+                                    <td>
+                                        <a type="button" class="btn btn-primary" href="{{personalResoruce.doc}}" target="_blank" style="text-decoration: none;"><i class="far fa-eye"></i></a>
+                                        <button type="button" class="btn btn-danger" style="margin-left: 4px;" (click)="OpenModel(personalResoruce.personalId,deleteModel)"><i class=" far fa-trash-alt "></i></button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #deleteModel let-modal>
+    <div class="app-modal-window ">
+        <div class="modal-body ">
+            <!-- Basic Validation -->
+            <div class="row clearfix ">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class=" justify-content-center">
+                        <h2 style="text-align: center">Are you sure want to Delete this file ?</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# Basic Validation -->
+        </div>
+        <div class="modal-footer d-flex justify-content-center text-light ">
+            <button type="button " class="btn theme-btn-cancel " (click)="CloseModel()">Cancel</button>
+            <button type="button " class="btn theme-btn " (click)="DeleteUserAPI(personalId)">Confirm</button>
+        </div>
+
+    </div>
+</ng-template>

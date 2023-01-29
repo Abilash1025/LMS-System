@@ -1,0 +1,39 @@
+<section class="menu navParent" once="menu" id="menu1-n">
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg navBg" id="nav" style="min-height:50px; height:50px">
+        <div class="container-fluid">
+            <div class="navbar-brand" style="min-height:50px">
+                <span (click)="SelectNavigation('#home')" style="cursor: pointer;color: rgb(250, 249, 249);">LMS </span>
+            </div>
+
+            <button class="displayCollapse" id="btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="position: relative; top:20px; width: 40px; height: 40px; left: 49%">
+        <span style="width: 25px"></span>
+        <span style="width: 25px"></span>
+        <span style="width: 25px"></span></button>
+
+            <button class="displayCollapse" style="visibility: hidden"></button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" (click)="SelectNavigation('#home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" (click)="SelectNavigation('#section1')">Section 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" (click)="SelectNavigation('#section2')">Section 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" (click)="SelectNavigation('#section3')">Section 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" (click)="SelectNavigation('#section4')">Section 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link primaryTextColor cursor" [routerLink]="['/dashboard/login']">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
